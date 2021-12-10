@@ -4,9 +4,10 @@ import sys
 
 kakasi = pykakasi.kakasi()
 
-def kanji2moe(kanji_text: list|str):
+def kanji2moe(kanji_text: list):
     """ """
-    if type(kanji_text) == "str":
+    print(type(kanji_text))
+    if type(kanji_text) is str:
         kanji_text = [kanji_text]
 
     hira_text = []

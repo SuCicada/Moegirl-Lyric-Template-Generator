@@ -75,9 +75,9 @@
         }
     </style>
     <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
-    <script src="./kuroshiro.min.js"></script>
-    <script src="./kuroshiro-analyzer-kuromoji.min.js"></script>
-
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <!-- <script src="./kuroshiro.min.js"></script> -->
+    <!-- <script src="./kuroshiro-analyzer-kuromoji.min.js"></script> -->
 </head>
 
 <body>
@@ -94,41 +94,44 @@
     </div>
 
     <div class="row" id="main">
-        <textarea id="orig" 
-            v-model="orig"
-            class="column" style="resize: none;" rows="20" cols="50%">
+        <textarea id="orig" class="column" style="resize: none;" rows="20" cols="50%" v-model="orig" @input="tran2hira">
         </textarea>
 
-        <textarea class="column" readonly style="resize: none;" rows="20" cols="50%">
-            {{ tran2hira(orig) }}
-        </textarea>
+        <textarea class="column" readonly style="resize: none;" rows="20" cols="50%"
+        >{{ hira }}</textarea>
     </div>
 
     <div class="footer">
         <h2>底部区域</h2>
     </div>
+    <script>
+        const url = "http://192.168.43.97:41401"
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                orig: "",
+                hira: ""
+            },
+            methods: {
+                tran2hira: function () {
+                    orig = this.orig
+                    that = this
+                    console.log(orig)
+                    console.log(orig && orig.length > 0)
+                    if (orig && orig.length > 0) {
+                        console.log("post", url)
+                        axios
+                            .post(url, { orig: orig })
+                            .then(function (res) {
+                                hira = res.data["hira"]
+                                console.log(hira);
+                                that.hira = hira
+                            });
+                    }
+                }
+            },
+        });
+    </script>
 </body>
-
-<script>
-    const result = Kuroshiro.Util.isHiragana("あ"   );
-
-    var vm = new Vue({
-        el: '#main',
-        data: {
-            orig: "",
-        },
-        methods: {
-            tran2hira(orig){
-                var kuroshiro = new Kuroshiro();
-                await kuroshiro.init(new KuromojiAnalyzer({
-                    dictPath: "dict"
-                }))
-                res = kuroshiro.convert("感じ取れたら手を繋ごう、重なるのは人生のライン and レミリア最高！", { to: "hiragana" });
-
-                return orig+"--";
-            }
-        },
-    });
-</script>
 
 </html>
