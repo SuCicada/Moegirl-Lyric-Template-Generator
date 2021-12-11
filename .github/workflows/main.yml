@@ -12,10 +12,12 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
+            GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             pwd
-            dir=$(echo "${{github.repository}}" | cut -d "/" -f 2)
-            echo ${{github.repository}}
+            # dir=$(echo "${{GITHUB_REPOSITORY}}" | cut -d "/" -f 2)
+            dir=${GITHUB_REPOSITORY#*/}
+            echo ${GITHUB_REPOSITORY}
             echo $dir
-            test -d $dir || git pull git@github.com:${{github.repository}}.git
-            cd $dir || bash ./install.sh
+            test -d $dir || git pull git@github.com:${GITHUB_REPOSITORY}.git
+            cd $dir && bash ./install.sh
