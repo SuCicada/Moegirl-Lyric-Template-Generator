@@ -24,16 +24,17 @@ jobs:
             fi
             cd $dir && {
               git pull 
-              echo sucicada | sudo -S -v
+              echo ${{ secrets.USERNAME }} | sudo -S -v
               source ./install.sh
             }
       - name: send telegram message on push
+        if: always()
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            [Build Success] ${{ github.repository }}
+            [Build ${{job.status}}] ${{ github.repository }}
 
             Commit message: ${{ github.event.commits[0].message }}
             
