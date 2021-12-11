@@ -13,7 +13,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd ~/APP/ 
-            dir=$(echo "${{GITHUB_REPOSITORY}}" | cut -d "/" -f 2)
+            dir=$(echo "${GITHUB_REPOSITORY}" | cut -d "/" -f 2)
+            echo ${GITHUB_REPOSITORY}
             echo $dir
-            test -d $dir || git pull git@github.com:${{GITHUB_REPOSITORY}}.git
+            test -d $dir || git pull git@github.com:${GITHUB_REPOSITORY}.git
             cd $dir || bash ./install.sh
