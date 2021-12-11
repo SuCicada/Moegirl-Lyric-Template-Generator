@@ -15,7 +15,7 @@ jobs:
             GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             pwd
-            # dir=$(echo "${{GITHUB_REPOSITORY}}" | cut -d "/" -f 2)
+            # dir=$(echo "${GITHUB_REPOSITORY}" | cut -d "/" -f 2)
             dir=${GITHUB_REPOSITORY#*/}
             echo ${GITHUB_REPOSITORY}
             echo $dir
