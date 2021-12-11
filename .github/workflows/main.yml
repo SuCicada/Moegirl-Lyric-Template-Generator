@@ -7,11 +7,13 @@ jobs:
     steps:
       - name: ssh run
         uses: appleboy/ssh-action@master
+        env:
+          PASSWORD: ${{ secrets.PASSWORD }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
+          password: ${PASSWORD}
+          script: | 
             GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             dir=${GITHUB_REPOSITORY#*/}
@@ -20,4 +22,5 @@ jobs:
             if [ ! -d $dir ];then 
               git clone git@github.com:${GITHUB_REPOSITORY}.git
             fi
+            echo ${PASSWORD} | sudo -S -v
             cd $dir && git pull && bash ./install.sh
