@@ -14,5 +14,6 @@ jobs:
           script: |
             cd ~/APP/ 
             dir=${GITHUB_REPOSITORY#*/}
+            echo $dir
             test -d $dir || git pull git@github.com:${GITHUB_REPOSITORY}.git
             cd $dir || bash ./install.sh
