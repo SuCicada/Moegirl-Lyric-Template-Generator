@@ -22,7 +22,8 @@ jobs:
             if [ ! -d $dir ];then 
               git clone git@github.com:${GITHUB_REPOSITORY}.git
             fi
-            cd $dir &&
-            git pull && 
-            export PASSWORD=${PASSWORD} &&
-            bash ./install.sh
+            cd $dir && {
+              git pull 
+              echo "${PASSWORD}" | sudo -S -v
+              source ./install.sh
+            }
