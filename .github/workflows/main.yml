@@ -13,7 +13,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${PASSWORD}
-          script: |
+          script: | 
             GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             dir=${GITHUB_REPOSITORY#*/}
@@ -24,7 +24,7 @@ jobs:
             fi
             cd $dir && {
               git pull 
-              echo "${PASSWORD}" | sudo -S -v
+              echo sucicada | sudo -S -v
               source ./install.sh
             }
       - name: send telegram message on push
@@ -34,7 +34,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             [Build Success] ${{ github.repository }}
-            
+
             Commit message: ${{ github.event.commits[0].message }}
             
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
