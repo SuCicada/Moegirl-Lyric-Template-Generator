@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
-import hira
+import moehira
 
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ def tran():
     orig = request.json.get("orig")
     orig_list = orig.split("\n")
     print("orig", orig_list)
-    hira_list = hira.kanji2moe(orig_list)
+    hira_list = moehira.kanji2moe(orig_list)
     res = "\n".join(hira_list)
     print("res", hira_list)
     print("res", res)
