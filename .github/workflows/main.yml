@@ -13,7 +13,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${PASSWORD}
-          script: | 
+          script: |
             GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             dir=${GITHUB_REPOSITORY#*/}
@@ -22,5 +22,7 @@ jobs:
             if [ ! -d $dir ];then 
               git clone git@github.com:${GITHUB_REPOSITORY}.git
             fi
-            echo ${PASSWORD} | sudo -S -v
-            cd $dir && git pull && bash ./install.sh
+            cd $dir &&
+            git pull && 
+            export PASSWORD=${PASSWORD} &&
+            bash ./install.sh

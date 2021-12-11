@@ -3,5 +3,6 @@
 current="$(dirname "$0")"
 echo "$current"
 pip3 install -r "$current"/pip.txt
+echo "${PASSWORD}" | sudo -S -v
 sudo cp "$current"/moehira.conf /etc/supervisor/conf.d/
-sudo supervisor
+# sudo supervisor
