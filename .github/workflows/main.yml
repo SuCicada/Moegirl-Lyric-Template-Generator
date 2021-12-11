@@ -14,10 +14,10 @@ jobs:
           script: |
             GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
-            pwd
-            # dir=$(echo "${GITHUB_REPOSITORY}" | cut -d "/" -f 2)
             dir=${GITHUB_REPOSITORY#*/}
-            echo ${GITHUB_REPOSITORY}
-            echo $dir
-            test -d $dir || git clone git@github.com:${GITHUB_REPOSITORY}.git
-            cd $dir && bash ./install.sh
+            echo "repository: ${GITHUB_REPOSITORY}"
+            echo "dir_name: $dir"
+            if [ ! -d $dir ];then 
+              git clone git@github.com:${GITHUB_REPOSITORY}.git
+            fi
+            cd $dir && git pull && bash ./install.sh
