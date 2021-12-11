@@ -13,6 +13,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd ~/APP/ 
+            pwd
             dir=$(echo "${GITHUB_REPOSITORY}" | cut -d "/" -f 2)
             echo ${GITHUB_REPOSITORY}
             echo $dir
