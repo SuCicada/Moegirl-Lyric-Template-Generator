@@ -34,8 +34,8 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
-          message: |
-            <font color=green>*[Build SUCCESS]*</font> ${{ github.repository }}
+          message: | 
+            *[Build SUCCESS]* ${{ github.repository }}
 
             Commit message: ${{ github.event.commits[0].message }}
 
@@ -49,6 +49,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
           message: |
-            <font color=red>*[Build FAILURE]*</font> ${{ github.repository }}
+            *[Build FAILURE]* ${{ github.repository }}
 
             [See Error Log](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
