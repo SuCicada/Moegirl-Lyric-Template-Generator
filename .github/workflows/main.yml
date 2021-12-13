@@ -13,7 +13,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${PASSWORD}
-          script: | 
+          script: |
             GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             dir=${GITHUB_REPOSITORY#*/}
@@ -27,15 +27,28 @@ jobs:
               echo ${{ secrets.PASSWORD }} | sudo -S -v
               source ./install.sh
             }
-      - name: send telegram message on push
-        if: always()
+      - name: send telegram message on success
+        if: success()
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
           message: |
-            [Build ${{job.status}}] ${{ github.repository }}
+            <font color=green>*[Build SUCCESS]*</font> ${{ github.repository }}
 
             Commit message: ${{ github.event.commits[0].message }}
-            
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+
+            [See Changes](https://github.com/${{ github.repository }}/commit/${{github.sha}})
+
+      - name: send telegram message on failure
+        if: failure()
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            <font color=red>*[Build FAILURE]*</font> ${{ github.repository }}
+
+            [See Error Log](https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
