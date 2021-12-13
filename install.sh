@@ -1,6 +1,6 @@
 #!/bin/bash
 
-current="$(dirname "$0")"
+current="$(realpath "$(dirname "$0")")"
 echo "$current"
 python3 -m pip install -r "$current"/pip.txt
 
