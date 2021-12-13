@@ -24,7 +24,8 @@ jobs:
               git clone git@github.com:${GITHUB_REPOSITORY}.git
             fi
             cd $dir && {
-              git pull --rebase -f
+              git reset --hard HEAD
+              git pull --rebase
               echo ${{ secrets.PASSWORD }} | sudo -S -v
               source ./install.sh
             }
@@ -35,6 +36,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
+          disable_web_page_preview: true
           message: | 
             *[Build SUCCESS]* ${{ github.repository }}
 
@@ -49,6 +51,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
+          disable_web_page_preview: true
           message: |
             *[Build FAILURE]* ${{ github.repository }}
 
