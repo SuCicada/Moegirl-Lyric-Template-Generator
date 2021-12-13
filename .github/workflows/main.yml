@@ -23,7 +23,7 @@ jobs:
               git clone git@github.com:${GITHUB_REPOSITORY}.git
             fi
             cd $dir && {
-              git pull 
+              git pull --rebase
               echo ${{ secrets.PASSWORD }} | sudo -S -v
               source ./install.sh
             }
