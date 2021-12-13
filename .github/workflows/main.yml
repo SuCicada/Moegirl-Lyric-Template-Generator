@@ -7,11 +7,13 @@ jobs:
     steps:
       - name: ssh run
         uses: appleboy/ssh-action@master
+        env:
+          PASSWORD: ${{ secrets.PASSWORD }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
+          password: ${PASSWORD}
+          script: | 
             GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             dir=${GITHUB_REPOSITORY#*/}
@@ -20,4 +22,20 @@ jobs:
             if [ ! -d $dir ];then 
               git clone git@github.com:${GITHUB_REPOSITORY}.git
             fi
-            cd $dir && git pull && bash ./install.sh
+            cd $dir && {
+              git pull 
+              echo ${{ secrets.PASSWORD }} | sudo -S -v
+              source ./install.sh
+            }
+      - name: send telegram message on push
+        if: always()
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            [Build ${{job.status}}] ${{ github.repository }}
+
+            Commit message: ${{ github.event.commits[0].message }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
