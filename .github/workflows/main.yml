@@ -13,7 +13,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${PASSWORD}
-          script: |
+          script: | 
             set -u
             GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
