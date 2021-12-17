@@ -17,7 +17,7 @@ app.after_request(after_request)
 CORS(app, supports_credentials=True)
 
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def tran():
     if request.json is not None:
         orig = request.json.get("orig")
