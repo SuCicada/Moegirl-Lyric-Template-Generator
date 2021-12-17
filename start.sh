@@ -1,3 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2155
 
-FLASK_APP=$(dirname "$0")/server.py flask run -h 0.0.0.0 -p 41401 
+export FLASK_APP=$(dirname "$0")/server.py
+python3 -u -m flask run -h 0.0.0.0 -p 41401
