@@ -7,7 +7,7 @@ kakasi = pykakasi.kakasi()
 
 def kanji2moe(kanji_text: list):
     """ """
-    print(type(kanji_text))
+    # print(type(kanji_text))
     if type(kanji_text) is str:
         kanji_text = [kanji_text]
 
