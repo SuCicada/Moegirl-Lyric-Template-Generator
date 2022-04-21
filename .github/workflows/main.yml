@@ -15,6 +15,7 @@ jobs:
           password: ${PASSWORD}
           script: |  
             set -e
+            GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             dir=${GITHUB_REPOSITORY#*/}
             echo "repository: ${GITHUB_REPOSITORY}"
