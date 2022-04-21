@@ -8,3 +8,8 @@ FLASK_APP=server.py flask run -h 0.0.0.0 -p 41401
 # example
 python app.py in.txt out.txt
 ```
+
+## deploy 
+```bash
+sudo apt-get install python3-pip
+```
