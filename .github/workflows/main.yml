@@ -21,7 +21,7 @@ jobs:
             echo "repository: ${GITHUB_REPOSITORY}"
             echo "dir_name: $dir"
             if [ ! -d $dir ];then 
-              git clone git@github.com:${GITHUB_REPOSITORY}.git
+              git clone https://github.com/${GITHUB_REPOSITORY}.git
             fi
             cd $dir && {
               git reset --hard HEAD
