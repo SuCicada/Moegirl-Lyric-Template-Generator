@@ -12,5 +12,5 @@ cp "$current"/deploy/moehira.conf $conf_dir/moehira.conf
 
 sed -i "s|\${deploy.path}|$current|g" $conf_dir/moehira.conf
 
-~/bin/supervisorctl update
-~/bin/supervisorctl restart moehira
+supervisorctl.sh update
+supervisorctl.sh restart moehira
