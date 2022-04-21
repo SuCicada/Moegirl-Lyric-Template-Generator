@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ssh run
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.4
         env:
           PASSWORD: ${{ secrets.PASSWORD }}
         with:
@@ -15,7 +15,6 @@ jobs:
           password: ${PASSWORD}
           script: |  
             set -e
-            GITHUB_REPOSITORY=${{ github.repository }}
             cd ~/APP/ 
             dir=${GITHUB_REPOSITORY#*/}
             echo "repository: ${GITHUB_REPOSITORY}"
