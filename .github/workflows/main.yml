@@ -27,7 +27,7 @@ jobs:
               git reset --hard HEAD
               git pull --rebase
               echo ${{ secrets.PASSWORD }} | sudo -S -v
-              source ./install.sh
+              bash ./install.sh
             }
       - name: send telegram message on success
         if: success()
