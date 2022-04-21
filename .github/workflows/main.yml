@@ -26,8 +26,9 @@ jobs:
             cd $dir && {
               git reset --hard HEAD
               git pull --rebase
-              echo ${{ secrets.PASSWORD }} | sudo -S -v
-              bash -c " bash ./install.sh"
+              # echo ${{ secrets.PASSWORD }} | sudo -S -v
+              source ~/.bashrc
+              bash ./install.sh
             }
       - name: send telegram message on success
         if: success()
