@@ -24,7 +24,7 @@ def kanji2moe(kanji_text: list):
                 hira_line += orig
             else:
                 res_kanji, res_hira, common_hira = tidyHira(orig, hira)
-                hira_line += "{{PT|%s|%s}%s}" % (
+                hira_line += "{{PT|%s|%s}}%s" % (
                     res_kanji, res_hira, common_hira)
         hira_text.append(hira_line)
     return hira_text
