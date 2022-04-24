@@ -31,20 +31,24 @@ def kanji2moe(kanji_text: list):
 
 
 def tidyHira(kanji, hira):
-    """ 去掉包含在汉字末尾中的平假名 """
-    res_kanji = kanji
-    res_hira = hira
-    common_hira = ""
-    # print(kanji+" "+hira)
-    kanji_len = len(kanji)
-    hira_len = len(hira)
-    for i in range(1, kanji_len+1):
-        # print(i)
-        if kanji[kanji_len-i] != hira[hira_len-i]:
-            res_kanji = kanji[:kanji_len-i+1]
-            res_hira = hira[:hira_len-i+1]
-            common_hira = hira[hira_len-i+1:]
-            # print(kanji, hira)
-            # print(res_kanji, res_hira, common_hira)
-            break
-    return res_kanji, res_hira, common_hira
+    try:
+        """ 去掉包含在汉字末尾中的平假名 """
+        res_kanji = kanji
+        res_hira = hira
+        common_hira = ""
+        # print(kanji+" "+hira)
+        kanji_len = len(kanji)
+        hira_len = len(hira)
+        for i in range(1, kanji_len + 1):
+            # print(i)
+            if kanji_len >= i and hira_len >= i and kanji[kanji_len - i] != hira[hira_len - i]:
+                res_kanji = kanji[:kanji_len - i + 1]
+                res_hira = hira[:hira_len - i + 1]
+                common_hira = hira[hira_len - i + 1:]
+                # print(kanji, hira)
+                # print(res_kanji, res_hira, common_hira)
+                break
+        return res_kanji, res_hira, common_hira
+    except Exception as e:
+        print(kanji, hira)
+        raise e
