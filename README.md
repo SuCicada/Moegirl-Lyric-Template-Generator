@@ -1,3 +1,5 @@
+【⚠️废弃】改为使用注音服务 https://github.com/SuCicada/japanese-firigana-service
+
 name moehira
 ## server
 ```bash
